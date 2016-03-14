@@ -1,0 +1,32 @@
+{
+  "name": "fis-lint-html-hint",
+  "version": "1.0.0",
+  "description": "a html linter for fiss based on htmlhint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiss-plugins/fis-lint-html-hint.git"
+  },
+  "keywords": [
+    "fis",
+    "fis3",
+    "fiss",
+    "fis-lint-html-hint",
+    "htmlhint",
+    "linter",
+    "lint"
+  ],
+  "author": "zhangyihua",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiss-plugins/fis-lint-html-hint/issues"
+  },
+  "homepage": "https://github.com/fiss-plugins/fis-lint-html-hint#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "htmlhint": "^0.9.12"
+  }
+}
