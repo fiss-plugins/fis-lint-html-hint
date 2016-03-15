@@ -57,3 +57,5 @@ rules: 对应 HTMLHint 的rules，其类型应该是一个对象，否则将使�
 ```
 更多规则详细信息参见 [HTMLHint Rules](https://github.com/yaniswang/HTMLHint/wiki/Rules)。
 
+[测试例子](https://github.com/fiss-plugins/test-fis-lint-html-hint)
+
