@@ -1,6 +1,6 @@
 {
   "name": "fis-lint-html-hint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a html linter for fiss based on htmlhint",
   "main": "index.js",
   "scripts": {
