@@ -24,10 +24,18 @@ example：
 fis.match('*.html', {
 	lint: fis.plugin('html-hint', {
 		// HTMLHint Options
+        ignoreFiles: ['prod/**.html'],
+        rules: {
+            "tag-pair": true
+        }
 	})
 });
 
 ```
+
+ignoreFiles: 配置忽略的文件，其类型可以是一个字符串或数组。
+
+rules: 对应 HTMLHint 的rules，其类型应该是一个对象，否则将使用默认规则。
 
 
 如果不提供规则配置的话，将使用 HTMLHint 提供的默认规则：

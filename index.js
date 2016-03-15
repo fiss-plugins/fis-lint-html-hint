@@ -31,6 +31,19 @@ function ignore(file, conf) {
     return false;
 }
 
+/**
+ * Checks if `value` is a plain object, that isn't an object like.
+ * @param  {AnyType}  arg the value to be checked.
+ * @return {Boolean}  if it's a plain object, will return true.
+ */
+function isPlainObject(arg) {
+	if (typeof arg == 'object' && Object.getPrototypeOf(arg) == Object.prototype) {
+		return true
+	}
+	return false;
+}
+
+
 module.exports = function(content, file, conf) {
 	if (ignore(file, conf)) {
 		return;
@@ -38,13 +51,17 @@ module.exports = function(content, file, conf) {
 	var colors = require('colors');
 	var HTMLHint,
 		messages,
-		infoStr = '';
+		infoStr = '',
+		rules = {};
+
+	if (typeof conf.rules !== 'undefined' && !isPlainObject(conf.rules)) {
+		fis.log.warn('Please check your html-hint rules, which should be a plain object. Currently using the default rules.');
+	} else {
+		rules = conf.rules;
+	}
 
 	HTMLHint  = require("htmlhint").HTMLHint;
-	if (conf.filename) {
-		delete conf.filename;
-	}
-	messages = HTMLHint.verify(content, conf);
+	messages = HTMLHint.verify(content, rules);
 
 	if (messages.length) {
 		messages = HTMLHint.format(messages, {
