@@ -10,7 +10,8 @@
  * @return {Boolean}      If current subpath matchs one of ignore pattern, return true.
  */
 function ignore(file, conf) {
-    var ignored = [], ignoreFiles = conf.ignoreFiles;
+    var ignored = [],
+        ignoreFiles = conf.ignoreFiles;
 
     if (ignoreFiles) {
         if (typeof ignoreFiles === 'string' || fis.util.is(ignoreFiles, 'RegExp')) {
@@ -37,41 +38,43 @@ function ignore(file, conf) {
  * @return {Boolean}  if it's a plain object, will return true.
  */
 function isPlainObject(arg) {
-	if (typeof arg == 'object' && Object.getPrototypeOf(arg) == Object.prototype) {
-		return true
-	}
-	return false;
+    if (typeof arg == 'object' && Object.getPrototypeOf(arg) == Object.prototype) {
+        return true
+    }
+    return false;
 }
 
 
 module.exports = function(content, file, conf) {
-	if (ignore(file, conf)) {
-		return;
-	}
-	var colors = require('colors');
-	var HTMLHint,
-		messages,
-		infoStr = '',
-		rules = {};
+    if (ignore(file, conf)) {
+        return;
+    }
+    // var colors = require('colors');
+    var HTMLHint,
+        messages,
+        infoStr = '',
+        rules = {};
 
-	if (typeof conf.rules !== 'undefined' && !isPlainObject(conf.rules)) {
-		fis.log.warn('Please check your html-hint rules, which should be a plain object. Currently using the default rules.');
-	} else {
-		rules = conf.rules;
-	}
+    if (typeof conf.rules !== 'undefined' && !isPlainObject(conf.rules)) {
+        fis.log.warn('Please check your html-hint rules, which should be a plain object. Currently using the default rules.');
+    } else {
+        rules = conf.rules;
+    }
 
-	HTMLHint  = require("htmlhint").HTMLHint;
-	messages = HTMLHint.verify(content, rules);
+    HTMLHint = require("htmlhint").HTMLHint;
+    messages = HTMLHint.verify(content, rules);
 
-	if (messages.length) {
-		messages = HTMLHint.format(messages, {
-	                        colors: true,
-	                        indent: 6
-	                    });
-	}
+    if (!messages.length) {
+        fis.log.info(' %s %s\n', file.id, 'pass!'.green);
+        return;
+    }
 
-	var errorCount = messages.length/2;
-	infoStr = messages.join('\n');
+    messages = HTMLHint.format(messages, {
+        colors: true,
+        indent: 6
+    });
+    var errorCount = messages.length / 2;
+    infoStr = messages.join('\n');
 
-	fis.log.info(' %s\n%s \n ', file.id, infoStr);
+    fis.log.info(' %s %s\n%s \n ', file.id, ' fail!'.red, infoStr);
 }

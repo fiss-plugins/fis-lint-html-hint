@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/fiss-plugins/fis-lint-html-hint#readme",
   "dependencies": {
-    "colors": "^1.1.2",
     "htmlhint": "^0.9.12"
   }
 }
